@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- 提供react对象 -->
+    <script src="./base/react.min.js"></script>
+    <!-- 提供reactdom对象 -->
+    <script src="./base/react-dom.min.js"></script>
+    <!-- 帮助解析jsx:语法糖 -->
+    <script src="./base/browser.min.js"></script>
+    <style>
+        .test{
+            width:200px;
+            height:200px;
+            background:blue;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+
+    </div>
+    <script type="text/babel">
+        //创建一个组件及虚拟dom
+        let Father = React.createClass({
+            getInitialState(){//给组件挂载初始状态，通过this.state获取
+                return{
+                show:true
+                }
+            },
+            fun(){
+                alert('爸爸的方法')
+                this.setState({show:!this.state.show})
+                // setState可以手动更新页面内容，控制状态变化
+            }，
+            render(){
+                
+                return (
+                    <div>
+                     <h3>这里是父组件</h3>
+                     {/*利用||或运算符判断div显示隐藏*/}
+                     {!this.state.show|| <div className='test'></div>}
+                     <Son hehe={this.fun}></Son>
+                    </div>
+
+                )
+            }
+        })
+        let Son = React.createClass({
+            sonfun(){
+                this.props.hehe()//通过props将父元素的方法传递给子元素
+                                //子元素在自己的方法中调用，实现子元素控制父元素
+               },
+           render(){
+               console.log(this,'son组件')
+            
+               return (
+                   <div>
+                        <h6>这里是子组件</h6>
+                        <button onClick={this.sonfun}>点我</button>
+                   </div>
+
+               )
+           }
+       })
+
+     ReactDOM.render(<Father/>,app)
+    </script>
+</body>
+</html>

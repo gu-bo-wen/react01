@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- 提供react对象 -->
+    <script src="./base/react.min.js"></script>
+    <!-- 提供reactdom对象 -->
+    <script src="./base/react-dom.min.js"></script>
+    <!-- 帮助解析jsx:语法糖 -->
+    <script src="./base/browser.min.js"></script>
+    <style>
+        .test{
+            width:200px;
+            height:200px;
+            background:blue;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+
+    </div>
+    <script type="text/babel">
+        //创建一个组件及虚拟dom
+        let Father = React.createClass({
+            getInitialState(){//子元素控制子元素，将可变的状态方法写在父元素上，
+                return{
+                    show:true
+                }
+            },
+          toggle(){//父元素控制div显示隐藏的方法
+            this.setState({show:!this.state.show})
+          },
+            render(){
+                
+                return (
+                    <div>
+                     <h3>这里是父组件</h3>
+                     {/*将父元素toggle的方法自定义hehe便于传递son1*/}
+                     <Son1 hehe={this.toggle}></Son1>
+                     {/* show 的状态值用于控制son2*/}
+                     <Son2 show={this.state.show}></Son2>
+               
+                    </div>
+
+                )
+            }
+        })
+        let Son1 = React.createClass({
+        //    fun(){
+        //        this.props.hehe()
+        //    },
+           render(){
+            
+               return (
+                   <div>
+                        <h6>这里是子组件1</h6>
+                        {/*父元素自定义的hehe方法通过props传递给button点击事件*/}
+                        <button onClick={this.props.hehe}>点我</button>
+                   </div>
+
+               )
+           }
+       })
+       let Son2 = React.createClass({
+           
+           render(){
+            
+               return (
+                   <div>
+                        <h6>这里是子组件2</h6>
+                        {/*div显示隐藏的通过props取值，通过||判断*/}
+                       {!this.props.show|| <div className='test'></div>}
+                   </div>
+
+               )
+           }
+       })
+     ReactDOM.render(<Father/>,app)
+    </script>
+</body>
+</html>
