@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- 提供react对象 -->
+    <script src="./base/react.min.js"></script>
+    <!-- 提供reactdom对象 -->
+    <script src="./base/react-dom.min.js"></script>
+    <!-- 帮助解析jsx:语法糖 -->
+    <script src="./base/browser.min.js"></script>
+    
+</head>
+<body>
+    <div id="app">
+
+    </div>
+    <script type="text/babel">
+        //创建一个组件及虚拟dom
+        let Hehe = React.createClass({
+            render(){
+                return (
+                    <div>
+                        <h1>你好呵呵</h1>
+                        <hr/>
+                        <p>呵呵你好</p>
+                    
+                    </div>
+
+                )
+            }
+        })
+     ReactDOM.render(<Hehe/>,app)
+    </script>
+</body>
+</html>

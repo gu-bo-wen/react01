@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- 提供react对象 -->
+    <script src="./base/react.min.js"></script>
+    <!-- 提供reactdom对象 -->
+    <script src="./base/react-dom.min.js"></script>
+    <!-- 帮助解析jsx:语法糖 -->
+    <script src="./base/browser.min.js"></script>
+    <style>
+    .red{
+        background:red;
+    }
+    </style>
+</head>
+<body>
+    <div id="app">
+
+    </div>
+    <script type="text/babel">
+        //创建一个组件虚拟dom
+     let Hehe = React.createClass({
+      
+        show:true,
+        rp(){
+            if(!this.show){
+                return ''
+            }
+            return(
+                <div>
+                  <p className='red'>渲染</p>
+                </div>
+            )
+        },
+         render() {
+            
+             return(
+                 <div>
+                {/* 三元表达式控制显示隐藏
+                 {this.show?<p className='red'>你好</p>:''}
+                 */}
+                 {/* 或||运算符判断显示隐藏
+                 {this.show||<p className='red'>你好</p>}
+                   */}
+                   {this.rp()}
+                 </div>
+             )
+         },
+     })
+     ReactDOM.render(<Hehe/>,app)
+    </script>
+</body>
+</html>

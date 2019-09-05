@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- 提供react对象 -->
+    <script src="./base/react.min.js"></script>
+    <!-- 提供reactdom对象 -->
+    <script src="./base/react-dom.min.js"></script>
+    <!-- 帮助解析jsx:语法糖 -->
+    <script src="./base/browser.min.js"></script>
+    
+</head>
+<body>
+    <div id="app">
+
+    </div>
+    <script type="text/babel">
+        //创建一个组件及虚拟dom
+        let Father = React.createClass({
+           getInitialState(){
+               return{
+                   hairtype:'小平头'
+               }
+           },
+           changehair(){
+             //  this.state.hairtype='逛'
+               this.setState({hairtype:'逛'})
+           },
+            render(){
+                console.log(this.refs)
+                return (
+                    <div>
+                     <h3>这里是爸爸</h3>
+                     <button onClick={this.changehair}>改发型</button>
+                     
+                    </div>
+
+                )
+            }
+        })
+    //     let Son = React.createClass({
+    //        getDefaultprops(){
+    //            return{
+    //         hair:'杀马特洗剪吹'
+    //            }
+    //        },
+    //        render(){
+    //            let {props,state}=this
+    //            return (
+    //                <div>
+    //                     <h6>这里是儿子</h6>
+    //                     <p>小儿子:{props.hair}</p>
+    //                </div>
+
+    //            )
+    //        }
+    //    })
+
+     ReactDOM.render(<Father/>,app)
+    </script>
+</body>
+</html>
