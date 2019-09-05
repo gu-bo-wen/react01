@@ -37,35 +37,34 @@
                 ]
             }
         },
-        addlist(msg){
-            let list=this.state.list
-            list.push({txt:msg,finish:false})
-            this.setState({list:list})
+        addlist(msg){//添加数据：
+            let list=this.state.list//声明一个变量list等于保存数组
+            list.push({txt:msg,finish:false})//往数组添加信息，默认未完成
+            this.setState({list:list})//通过setState方法更新内容，控制状态变化
         },
-        del(index){
+        del(index){//删除数据
             let list=this.state.list
             list.splice(index,1)
             this.setState({list:list})
         },
-        finish(index,e){
-            let list=this.state.list
-            this.setState({targetValue:e.target.value})
-            this.setState({list:list})
+        finish(index){//修改
+          
         },
          render(){
              let {state}=this
              return(
                  <div className='box'>
               
-                 <Input addlist={this.addlist}></Input>
-                 <List list={state.list} del={this.del} finish={this.finish}></List>
+                 <Input addlist={this.addlist}></Input>   {/*添加内容*/}
+
+                 <List list={state.list} del={this.del}></List>  {/*子组件中引用父组件中的添加，删除的方法*/}
 
                  </div>
             )
          }
      })
      let List = React.createClass({
-        
+        //处理数据工程
          renderlist(data){
             if(!data.length) return (<div>暂无代办事项</div>)
              return(
@@ -89,20 +88,21 @@
              return(
                  <div>
                   
-                    {this.renderlist(props.list)}
+                    {this.renderlist(props.list)}{/*通过函数调用，props传值，将拿到的数据在子组件的div中渲染，*/}
                  </div>
             )
          }
      })
      let Input = React.createClass({
          add(){
-             let msg=this.refs.input.value
-             this.props.addlist(msg)
+             let msg=this.refs.input.value//声明msg用于保存input框中输入的内容
+             this.props.addlist(msg)  //通过props将父元素中添加内容的方法传过来
          },
          render(){
              return(
                  <div>
-                    <input type='text' ref='input'/>
+                    <input type='text' ref='input'/>   {/*ref对DOM进行绑定*/}
+
                     <button onClick={this.add}>添加</button>
                  </div>
              )
