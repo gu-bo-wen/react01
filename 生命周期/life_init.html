@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- 提供react对象 -->
+    <script src="../base/react.min.js"></script>
+    <!-- 提供reactdom对象 -->
+    <script src="../base/react-dom.min.js"></script>
+    <!-- 帮助解析jsx:语法糖 -->
+    <script src="../base/browser.min.js"></script>
+    
+</head>
+<body>
+    <div id="app">
+
+    </div>
+    <script type="text/babel">
+        //创建一个组件及虚拟dom
+        let Hehe = React.createClass({
+            getInitialState(){//初始化数据
+                return{
+                    name:'韩梅梅'
+                }
+            },
+            componentWillMount(){//挂载前,注意：不可以做数据请求，由于异步加载过程中执行render之前的生命周期都会被打断，造成多次请求
+                console.log('挂载之前')
+                console.log(this)
+                console.log(this.refs.hehe)
+                console.log(this.state.name)
+                // this.state.name='李雷'//在执行render之前修改的数据不需要this.setState触发就可以渲染
+            },
+            componentDidMount(){//挂载后：这里做数据请求，初始化dom
+                console.log('挂载结束')
+                console.log(this)
+                console.log(this.refs.hehe.innerText)
+                console.log(this.state.name)
+                //this.state.name='李雷'
+                this.setState({name:'李雷'})//在执行render之后修改的数据需要this.setState触发
+            },
+            render(){
+                console.log('渲染')
+                return (
+                    <div>
+                        <h1>{this.state.name}</h1>
+                        <hr/>
+                        <p ref="hehe">呵呵你好</p>
+                    
+                    </div>
+
+                )
+            }
+        })
+     ReactDOM.render(<Hehe/>,app)
+    </script>
+</body>
+</html>

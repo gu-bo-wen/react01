@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- 提供react对象 -->
+    <script src="../base/react.min.js"></script>
+    <!-- 提供reactdom对象 -->
+    <script src="../base/react-dom.min.js"></script>
+    <!-- 帮助解析jsx:语法糖 -->
+    <script src="../base/browser.min.js"></script>
+    
+</head>
+<body>
+    <div id="app">
+
+    </div>
+    <script type="text/babel">
+        //创建一个组件及虚拟dom
+        let Hehe = React.createClass({
+            getInitialState(){
+                return{
+                    age:16
+                }
+            },
+            changeAge(){
+                let age=++this.state.age
+                if(age>=20){age=20}
+                this.setState({age})
+           
+            
+            },
+            render(){
+                return (
+                    <div>
+                        <h1>父组件</h1>
+                        <Son age={this.state.age}></Son>
+                        <button onClick={()=>{//事件回调
+                            this.changeAge()
+                        }}>点击</button>
+                    </div>
+
+                )
+            }
+        })
+        let Son = React.createClass({
+            getInitialState(){
+                return{
+                    name:'hehe'
+                }
+            },
+            componentWillReceiveProps(props){//props可以获取更改之后的值
+                                            //this.props获取更改之前的值
+                                            //减少请求次数
+                console.log('props发生改变',props,this.props)
+
+                //模拟数据请求
+                if(props.age!==this.props.age){
+                    setTimeout(()=>{
+                        console.log('获取数据')
+                    },100);
+                }
+            },
+            shouldComponentUpdate(props,state){//是否更新数据，true或false,也就是控制页面渲染
+                console.log('是否更新',props,state,this.props)//参数props是更新前的数据，this.props是更新前的数据
+                //可以判断是否渲染,减少请求次数
+                if(this.props.age===props.age){
+                    return false
+                }else{
+                        return true
+                    }
+
+                return true  //true就是渲染
+            },
+            componentWillUpdate(){//更新之前无法获取dom，render之前注意这里不能做数据请求
+                console.log('更新之前')
+            },
+            componentDidUpdate(){
+                console.log('更新之后')
+            },
+            render(){
+                console.log('son渲染')
+                return (
+                    <div>
+                      <h4>子组件</h4>
+                      儿子:{this.props.age}岁
+                    
+                    </div>
+
+                )
+            }
+        })
+     ReactDOM.render(<Hehe/>,app)
+    </script>
+</body>
+</html>
